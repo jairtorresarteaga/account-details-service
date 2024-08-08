@@ -15,7 +15,7 @@
 	<name>Account Details Microservice</name>
 	<description>Microservicio que proporciona detalles de la cuenta de ahorros de los clientes</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
