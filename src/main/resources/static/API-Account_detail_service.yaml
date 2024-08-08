@@ -1,0 +1,91 @@
+swagger: '2.0'
+info:
+  title: savings-account
+  version: v1.0
+  description: API para Consultar el Detalle de una Cuenta de Ahorros
+host: "api.mybank.com"
+schemes:
+  - "https"
+basePath: /savings-account/v1.0
+paths:
+  /retrieve:
+    post:
+      tags:
+        - BQ - SavingsAccount
+      description: "API para Consultar el Detalle de una Cuenta de Ahorros a través del Número de Cuenta"
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          description: "Object containing account identification details"
+          schema:
+            type: object
+            properties:
+              Account:
+                type: object
+                required:
+                  - Identification
+                properties:
+                  Identification:
+                    type: string
+                    description: "Identification of the savings account"
+                    example: "5afe1233-7214"
+      responses:
+        '200':
+          headers:
+            MessageIdentification:
+              type: string
+              description: "Unique identifier for the message"
+          schema:
+            type: object
+            properties:
+              Account:
+                type: object
+                properties:
+                  Identification:
+                    type: string
+                    example: "123"
+                  BaseCurrency:
+                    type: string
+                    example: "USD"
+                  Status:
+                    type: string
+                    example: "active"
+                  Type:
+                    type: string
+                    example: "saving"
+          description: "OK"
+        '400':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "BadRequest"
+        '401':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "Unauthorized"
+        '403':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "Forbidden"
+        '404':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "NotFound"
+        '429':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "TooManyRequests"
+        '500':
+          schema:
+            $ref: '#/definitions/HTTPError'
+          description: "InternalServerError"
+definitions:
+  HTTPError:
+    type: "object"
+    properties:
+      status_code:
+        type: "string"
+      status:
+        type: "string"
+      message:
+        type: "string"
